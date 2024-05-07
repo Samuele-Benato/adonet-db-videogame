@@ -87,6 +87,33 @@ namespace adonet_db_videogame
             }
         }
 
-        
+        static void GetVideogameByInput(string input)
+        {
+            string query = "SELECT * FROM videogames WHERE name = @input OR overview = @input";
+            SqlConnection connect = new SqlConnection(CONNECT_DATABASE);
+
+            try
+            {
+                connect.Open();
+                SqlCommand cmd = new SqlCommand(query, connect);
+                cmd.Parameters.Add(new SqlParameter("@input", input));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Console.WriteLine($"ID: {reader["id"]}, Name: {reader["name"]}, Overview: {reader["overview"]}, Release Date: {reader["release_date"]}, Created At: {reader["created_at"]}, Updated At: {reader["updated_at"]}");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.ToString());
+            }
+            finally
+            {
+                connect.Close();
+            }
+        }
+
+       
     }
 }
