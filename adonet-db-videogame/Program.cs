@@ -11,23 +11,23 @@
             Console.WriteLine("4. Elimina un videogioco");
             Console.WriteLine("5. Esci");
 
-            int choice = Convert.ToInt32(Console.ReadLine());
+            string choice = Console.ReadLine();
 
             switch (choice)
             {
-                case 1:
+                case "1":
                     InsertVideogame();
                     break;
-                case 2:
+                case "2":
                     GetVideogameById();
                     break;
-                case 3:
+                case "3":
                     GetVideogameByInput();
                     break;
-                case 4:
+                case "4":
                     DeleteVideogame();
                     break;
-                case 5:
+                case "5":
                     Console.WriteLine("Programma chiuso.");
                     break;
                 default:
