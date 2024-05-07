@@ -15,6 +15,7 @@
 
             switch (choice)
             {
+
                 case "1":
                     InsertVideogame();
                     break;
@@ -81,7 +82,7 @@
             {
                 try
                 {
-                    Console.WriteLine("Inserisci l'ID del videogioco:");
+                    Console.Write("Inserisci l'ID del videogioco:");
                     string input = Console.ReadLine();
                     if (!int.TryParse(input, out int id))
                     {
@@ -100,7 +101,7 @@
             {
                 try
                 {
-                    Console.WriteLine("Inserisci parola chiave:");
+                    Console.Write("Inserisci parola chiave:");
                     string input = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(input))
                     {

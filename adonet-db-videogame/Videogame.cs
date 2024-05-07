@@ -30,7 +30,7 @@ namespace adonet_db_videogame
 
     public static class VideogameManagement
     {
-        static string CONNECT_DATABASE = "Server=localhost;Database=db-videogames;Trusted_Connection=True";
+        const string CONNECT_DATABASE = "Server=localhost;Database=db-videogames;Trusted_Connection=True";
         public static void InsertVideogame(string name, string overview, DateTime relesedate, DateTime createdat, DateTime updatedat, int softwarehouseid)
         {
            Videogame videogame = new Videogame(name, overview, relesedate, createdat, updatedat, softwarehouseid);
