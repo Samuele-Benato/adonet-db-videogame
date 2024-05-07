@@ -37,47 +37,100 @@
 
             static void InsertVideogame()
             {
-
-                Console.Write("1. inserisci il nome : ");
-                string name = Console.ReadLine();
-
-                Console.Write("2. inserisci la trama : ");
-                string overview = Console.ReadLine();
-
-                Console.WriteLine($"3. inserisci la data di rilascio (formato YYYY-MM-DD) : ");
-                DateTime releaseDate;
-                while (!DateTime.TryParse(Console.ReadLine(), out releaseDate))
+                try
                 {
-                    Console.WriteLine("Data non valida, riprova.");
-                    Console.WriteLine("Scrivi una data (formato YYYY-MM-DD)");
+                    Console.Write("1. inserisci il nome : ");
+                    string name = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(name))
+                    {
+                        throw new ArgumentException("Il nome non può essere vuoto.");
+                    }
+
+                    Console.Write("2. inserisci la trama : ");
+                    string overview = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(overview))
+                    {
+                        throw new ArgumentException("la descrizione non può essere vuota.");
+                    }
+
+                    Console.WriteLine($"3. inserisci la data di rilascio (formato YYYY-MM-DD) : ");
+                    DateTime releaseDate;
+                    while (!DateTime.TryParse(Console.ReadLine(), out releaseDate))
+                    {
+                        Console.WriteLine("Data non valida, riprova.");
+                        Console.WriteLine("Scrivi una data (formato YYYY-MM-DD)");
+                    }
+
+                    DateTime createdAt = DateTime.Now;
+                    DateTime updatedAt = DateTime.Now;
+                    int softwarehouseid = 1;
+
+                    VideogameManagement.InsertVideogame(name, overview, releaseDate, createdAt, updatedAt, softwarehouseid);
+                    Console.WriteLine("Aggiunta avvenuta con successo!");
                 }
-
-                DateTime createdAt = DateTime.Now;
-                DateTime updatedAt = DateTime.Now;
-                int softwarehouseid = 1;
-
-                VideogameManagement.InsertVideogame(name, overview, releaseDate, createdAt, updatedAt, softwarehouseid);
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+               
             }
 
             static void GetVideogameById()
-            {  
-                Console.WriteLine("Inserisci l'ID del videogioco:");
-                int id = Convert.ToInt32(Console.ReadLine());
-                VideogameManagement.GetVideogameById(id);
+            {
+                try
+                {
+                    Console.WriteLine("Inserisci l'ID del videogioco:");
+                    string input = Console.ReadLine();
+                    if (!int.TryParse(input, out int id))
+                    {
+                        throw new FormatException("L'ID deve essere un numero intero.");
+                    }
+                    VideogameManagement.GetVideogameById(id);
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                
             }
 
             static void GetVideogameByInput()
             {
-                Console.WriteLine("Inserisci parola chiave:");
-                string input = Console.ReadLine();
-                VideogameManagement.GetVideogameByInput(input);
+                try
+                {
+                    Console.WriteLine("Inserisci parola chiave:");
+                    string input = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(input))
+                    {
+                        throw new ArgumentException("la descrizione non può essere vuota.");
+                    }
+                    VideogameManagement.GetVideogameByInput(input);
+                }
+                catch(FormatException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
 
             static void DeleteVideogame()
             {
-                Console.WriteLine("Inserisci il nome del videogioco per confermare l'eliminazione");
-                string name = Console.ReadLine() ;
-                VideogameManagement.DeleteVideogame(name);
+                try
+                {
+                    Console.WriteLine("Inserisci il nome del videogioco per confermare l'eliminazione");
+                    string name = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(name))
+                    {
+                        throw new ArgumentException("la descrizione non può essere vuota.");
+                    }
+                    VideogameManagement.DeleteVideogame(name);
+                    Console.WriteLine("Eliminazione avvenuta con successo!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
     }
