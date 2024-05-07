@@ -59,5 +59,34 @@ namespace adonet_db_videogame
                 connect.Close();
             }
         }
+
+        static void GetVideogameById(int id)
+        {
+            string query = "SELECT * FROM videogames WHERE id = @id";
+            SqlConnection connect = new SqlConnection(CONNECT_DATABASE);
+
+            try
+            {
+                connect.Open();
+                SqlCommand cmd = new SqlCommand(query, connect);
+                cmd.Parameters.Add(new SqlParameter("@id", id));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Console.WriteLine($"ID: {reader["id"]}, Name: {reader["name"]}, Overview: {reader["overview"]}, Release Date: {reader["release_date"]}, Created At: {reader["created_at"]}, Updated At: {reader["updated_at"]}");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.ToString());
+            }
+            finally
+            {
+                connect.Close();
+            }
+        }
+
+        
     }
 }
